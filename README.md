@@ -1,4 +1,4 @@
-####:rocket: GoStack - React Native Concepts Challenge.
+#### :rocket: GoStack - React Native Concepts Challenge.
 
 ---
 
