@@ -7,7 +7,8 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { ApiRepository } from './services/repositories'
+//import { ApiRepository } from './services/repositories'
+import ApiRepository from './services/api'
 import ItemRepository from './components/ItemRepository'
 import EmptyMessage from './components/EmptyComponent'
 
@@ -19,10 +20,10 @@ export default function App() {
 
     setButtonDisabledLike(true)
 
-    ApiRepository.like(id)
-      .then(repository => {
+    ApiRepository.post(`/repositories/${id}/like`)
+      .then(({data}) => {
 
-        const newRepositories = repositories.map(repo => repo.id === id ? { ...repo, likes: repository.likes } : repo)
+        const newRepositories = repositories.map(repo => repo.id === id ? { ...repo, likes: data.likes } : repo)
 
         setRepositories(newRepositories)
 
@@ -34,8 +35,8 @@ export default function App() {
 
   const listRepositories = async () => {
 
-    ApiRepository.get()
-      .then(repositories => setRepositories(repositories))
+    ApiRepository.get('/repositories')
+      .then(({data}) => setRepositories(data))
       .catch(err => alert(err))
 
   }
